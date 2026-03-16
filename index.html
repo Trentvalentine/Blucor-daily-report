@@ -16,113 +16,117 @@
 
   body {
     font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
-    font-size: 9.5pt;
+    font-size: 12pt;
     color: #222;
     background: #e4e8ec;
     padding: 20px;
   }
 
   .page {
-    max-width: 820px;
+    max-width: 860px;
     margin: 0 auto;
     background: #fff;
-    padding: 28px 36px;
+    padding: 32px 40px;
     box-shadow: 0 2px 12px rgba(0,0,0,.12);
     border-radius: 4px;
   }
 
   /* ── Header ── */
-  .header { text-align: center; margin-bottom: 10px; border-bottom: 3px solid var(--blue); padding-bottom: 8px; }
-  .header h1 { font-size: 16pt; color: var(--blue); letter-spacing: 1.5px; margin-bottom: 1px; }
-  .header h2 { font-size: 11pt; font-weight: 400; color: var(--blue-light); letter-spacing: .5px; }
+  .header { text-align: center; margin-bottom: 14px; border-bottom: 3px solid var(--blue); padding-bottom: 10px; }
+  .header h1 { font-size: 22pt; color: var(--blue); letter-spacing: 2px; margin-bottom: 2px; }
+  .header h2 { font-size: 14pt; font-weight: 400; color: var(--blue-light); letter-spacing: .5px; }
 
   /* ── Top fields row ── */
-  .top-fields { display: flex; gap: 10px; margin-bottom: 10px; flex-wrap: wrap; }
-  .top-fields label { flex: 1 1 180px; }
-  .top-fields label span { font-weight: 600; font-size: 8.5pt; color: #444; }
+  .top-fields { display: flex; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+  .top-fields label { flex: 1 1 200px; }
+  .top-fields label span { font-weight: 600; font-size: 11pt; color: #444; }
   .top-fields input[type="text"],
   .top-fields input[type="date"] {
     width: 100%; border: none; border-bottom: 1.5px solid var(--border);
-    padding: 2px 2px; font-size: 9pt; background: transparent; outline: none;
+    padding: 4px 4px; font-size: 11pt; background: transparent; outline: none;
   }
   .top-fields input:focus { border-color: var(--blue); }
 
   /* ── Section titles ── */
-  .section { margin-top: 10px; }
+  .section { margin-top: 14px; }
   .section-title {
-    font-size: 9pt; font-weight: 700; color: #fff; background: var(--blue);
-    padding: 3px 8px; margin-bottom: 4px; border-radius: 2px;
+    font-size: 11pt; font-weight: 700; color: #fff; background: var(--blue);
+    padding: 5px 10px; margin-bottom: 6px; border-radius: 3px;
+  }
+  .section-desc {
+    font-size: 10pt; color: #555; font-style: italic; margin-bottom: 6px;
+    padding-left: 2px;
   }
 
   /* ── Tables ── */
-  table { width: 100%; border-collapse: collapse; margin-bottom: 2px; }
-  th { background: var(--blue-light); color: #fff; font-size: 7.5pt; text-transform: uppercase;
-       letter-spacing: .4px; padding: 2px 4px; text-align: left; }
+  table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+  th { background: var(--blue-light); color: #fff; font-size: 10pt; text-transform: uppercase;
+       letter-spacing: .5px; padding: 5px 8px; text-align: left; }
   td { padding: 0; }
   td input {
-    width: 100%; border: none; padding: 1px 3px; font-size: 8.5pt;
+    width: 100%; border: none; padding: 4px 6px; font-size: 11pt;
     font-family: inherit; background: transparent; outline: none;
   }
-  td.time-label { padding: 1px 4px; font-size: 8pt; font-weight: 600; color: #444;
+  td.time-label { padding: 4px 8px; font-size: 10pt; font-weight: 600; color: #444;
     background: #f0f2f5; white-space: nowrap; text-align: center; }
   tr:nth-child(even) td { background: var(--row-alt); }
   tr:nth-child(even) td.time-label { background: #e4e8ed; }
   table, th, td { border: 1px solid var(--border); }
 
   /* ── Inline field rows ── */
-  .field-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; align-items: flex-end; }
-  .field-row label { display: flex; align-items: baseline; gap: 3px; font-size: 8.5pt; font-weight: 600; color: #444; }
+  .field-row { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 8px; align-items: flex-end; }
+  .field-row label { display: flex; align-items: baseline; gap: 4px; font-size: 11pt; font-weight: 600; color: #444; }
   .field-row input[type="text"] {
-    border: none; border-bottom: 1.5px solid var(--border); padding: 1px 3px;
-    font-size: 8.5pt; background: transparent; outline: none;
+    border: none; border-bottom: 1.5px solid var(--border); padding: 3px 4px;
+    font-size: 11pt; background: transparent; outline: none;
   }
   .field-row input:focus { border-color: var(--blue); }
-  .field-row .wide { flex: 1 1 200px; }
-  .field-row .med  { width: 140px; }
-  .field-row .sm   { width: 70px; }
-  .field-row .xs   { width: 42px; }
+  .field-row .wide { flex: 1 1 220px; }
+  .field-row .med  { width: 160px; }
+  .field-row .sm   { width: 90px; }
+  .field-row .xs   { width: 50px; }
 
   /* ── Full-width note lines ── */
   .note-line {
     width: 100%; border: none; border-bottom: 1.5px solid var(--border);
-    padding: 2px 2px; font-size: 8.5pt; font-family: inherit; outline: none;
-    background: transparent; margin-bottom: 2px;
+    padding: 4px 4px; font-size: 11pt; font-family: inherit; outline: none;
+    background: transparent; margin-bottom: 4px;
   }
   .note-line:focus { border-color: var(--blue); }
 
   /* ── Bullet / numbered lists ── */
   .bullet-list { list-style: none; padding: 0; }
-  .bullet-list li { display: flex; align-items: baseline; gap: 4px; margin-bottom: 2px; }
-  .bullet-list li::before { font-weight: 700; color: var(--blue); min-width: 14px; font-size: 8.5pt; }
+  .bullet-list li { display: flex; align-items: baseline; gap: 6px; margin-bottom: 6px; }
+  .bullet-list li::before { font-weight: 700; color: var(--blue); min-width: 18px; font-size: 11pt; }
   .bullet-list.nums li::before { content: counter(num) "."; counter-increment: num; }
   .bullet-list.nums { counter-reset: num; }
   .bullet-list input { flex: 1; border: none; border-bottom: 1.5px solid var(--border);
-    padding: 1px 3px; font-size: 8.5pt; background: transparent; outline: none; }
+    padding: 3px 4px; font-size: 11pt; background: transparent; outline: none; }
   .bullet-list input:focus { border-color: var(--blue); }
 
   /* ── Yes/No toggles ── */
-  .yn { display: inline-flex; gap: 3px; margin: 0 4px; }
+  .yn { display: inline-flex; gap: 4px; margin: 0 6px; }
   .yn button[type="button"] {
-    padding: 0px 8px; font-size: 8pt; border: 1.5px solid var(--border);
+    padding: 2px 12px; font-size: 10pt; border: 1.5px solid var(--border);
     border-radius: 3px; background: #fff; cursor: pointer; font-weight: 600; color: #555;
   }
   .yn button[type="button"].active-yes { background: #27ae60; color: #fff; border-color: #27ae60; }
   .yn button[type="button"].active-no  { background: #c0392b; color: #fff; border-color: #c0392b; }
 
   /* ── Assessment inline ── */
-  .assess-row { margin-bottom: 4px; font-size: 8.5pt; line-height: 1.5; }
+  .assess-row { margin-bottom: 10px; font-size: 11pt; line-height: 1.6; }
   .assess-row .qlabel { font-weight: 600; color: #333; }
   .assess-row input[type="text"] {
-    border: none; border-bottom: 1.5px solid var(--border); font-size: 8.5pt;
-    outline: none; background: transparent; padding: 1px 3px;
+    border: none; border-bottom: 1.5px solid var(--border); font-size: 11pt;
+    outline: none; background: transparent; padding: 3px 4px;
   }
 
   /* ── Signature block ── */
-  .sig-block { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 16px; }
-  .sig-block label { flex: 1 1 180px; font-size: 8.5pt; font-weight: 600; color: #444; }
+  .sig-block { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 20px; }
+  .sig-block label { flex: 1 1 200px; font-size: 11pt; font-weight: 600; color: #444; }
   .sig-block input {
     width: 100%; border: none; border-bottom: 2px solid var(--blue);
-    padding: 2px 2px; font-size: 9pt; background: transparent; outline: none;
+    padding: 4px 4px; font-size: 11pt; background: transparent; outline: none;
   }
 
   /* ── Page break marker ── */
@@ -164,31 +168,36 @@
 
   /* ── Print styles — front/back single sheet ── */
   @media print {
-    body { background: #fff; padding: 0; font-size: 8.5pt; }
-    .page { box-shadow: none; padding: 12px 20px; max-width: 100%; }
+    body { background: #fff; padding: 0; font-size: 11pt; }
+    .page { box-shadow: none; padding: 16px 24px; max-width: 100%; }
     .btn-bar, .submit-bar { display: none !important; }
-    .header { border-bottom-width: 2px; padding-bottom: 6px; margin-bottom: 6px; }
-    .header h1 { font-size: 14pt; }
-    .header h2 { font-size: 10pt; }
-    .section { margin-top: 6px; }
-    .section-title { padding: 2px 6px; font-size: 8pt; }
-    .top-fields { margin-bottom: 6px; }
+    .header { border-bottom-width: 2px; padding-bottom: 8px; margin-bottom: 10px; }
+    .header h1 { font-size: 20pt; }
+    .header h2 { font-size: 13pt; }
+    .section { margin-top: 10px; }
+    .section-title { padding: 4px 8px; font-size: 10pt; }
+    .section-desc { font-size: 9pt; margin-bottom: 4px; }
+    .top-fields { margin-bottom: 10px; }
+    .top-fields label span { font-size: 10pt; }
+    .top-fields input { font-size: 10pt; }
     input, textarea { border-color: #999 !important; }
-    .yn button[type="button"] { border-color: #999; }
-    td input { font-size: 8pt; padding: 1px 2px; }
-    td.time-label { font-size: 7.5pt; padding: 1px 3px; }
-    th { font-size: 7pt; padding: 2px 3px; }
-    .field-row label, .field-row input[type="text"] { font-size: 8pt; }
-    .note-line { font-size: 8pt; }
-    .assess-row { font-size: 8pt; margin-bottom: 3px; }
-    .assess-row input[type="text"] { font-size: 8pt; }
-    .bullet-list input { font-size: 8pt; }
-    .bullet-list li::before { font-size: 8pt; }
-    .sig-block { margin-top: 8px; }
-    .sig-block label { font-size: 8pt; }
-    .sig-block input { font-size: 8pt; }
+    .yn button[type="button"] { border-color: #999; font-size: 9pt; padding: 1px 10px; }
+    td input { font-size: 10pt; padding: 3px 4px; }
+    td.time-label { font-size: 9.5pt; padding: 3px 6px; }
+    th { font-size: 9pt; padding: 4px 6px; }
+    .field-row label, .field-row input[type="text"] { font-size: 10pt; }
+    .field-row { margin-bottom: 6px; }
+    .note-line { font-size: 10pt; margin-bottom: 3px; }
+    .assess-row { font-size: 10pt; margin-bottom: 8px; }
+    .assess-row input[type="text"] { font-size: 10pt; }
+    .bullet-list input { font-size: 10pt; }
+    .bullet-list li::before { font-size: 10pt; }
+    .bullet-list li { margin-bottom: 5px; }
+    .sig-block { margin-top: 14px; }
+    .sig-block label { font-size: 10pt; }
+    .sig-block input { font-size: 10pt; }
 
-    @page { size: letter portrait; margin: 0.35in 0.4in; }
+    @page { size: letter portrait; margin: 0.3in 0.35in; }
 
     .page-break { display: block; page-break-before: always; }
 
@@ -229,19 +238,22 @@
   <!-- 1. TODAY'S COMPLETED WORK — 30-min time slots -->
   <div class="section" id="sec-tasks">
     <div class="section-title">1. Today's Completed Work</div>
+    <div class="section-desc">Log each task or activity performed during your shift. Be specific — include location, equipment, and outcome.</div>
     <table>
-      <thead><tr><th style="width:12%">Time</th><th>Task / Activity</th></tr></thead>
+      <thead><tr><th style="width:14%">Time</th><th>Task / Activity Description</th></tr></thead>
       <tbody id="taskRows"></tbody>
     </table>
   </div>
 
   <!-- 2. WORK ORDERS -->
   <div class="section" id="sec-wo">
-    <div class="section-title">2. Work Orders and Repair Requests Completed</div>
+    <div class="section-title">2. Work Orders &amp; Repair Requests Completed</div>
+    <div class="section-desc">List each work order or repair request you worked on today. Include completion percentage and any issues encountered.</div>
     <div id="woRows"></div>
-    <div style="margin-top:3px;">
-      <span style="font-weight:600;font-size:8pt;color:#444;">Additional Notes</span>
-      <input class="note-line" type="text" id="woNote1">
+    <div style="margin-top:6px;">
+      <span style="font-weight:600;font-size:11pt;color:#444;">Additional Notes</span>
+      <input class="note-line" type="text" id="woNote1" placeholder="Materials used, delays, follow-up needed...">
+      <input class="note-line" type="text" id="woNote2">
     </div>
   </div>
 
@@ -251,117 +263,138 @@
   <!-- 3. CREW & SAFETY LOG -->
   <div class="section" id="sec-crew">
     <div class="section-title">3. Crew &amp; Safety Log</div>
+    <div class="section-desc">Report hours, safety incidents, and PPE compliance for the day.</div>
     <div class="field-row">
-      <label>Hours worked: <input type="text" class="xs" id="crewHours"></label>
-      <label>Safety incidents: <input type="text" class="xs" id="crewIncidents"></label>
-      <label class="wide">Details: <input type="text" class="wide" id="crewDetails1"></label>
+      <label>Total hours worked today: <input type="text" class="xs" id="crewHours"></label>
+      <label>Number of safety incidents: <input type="text" class="xs" id="crewIncidents"></label>
     </div>
-    <div class="field-row" style="margin-top:2px;">
-      <label>PPE / equipment checks:</label>
+    <div class="field-row">
+      <label class="wide">Incident / near-miss details: <input type="text" class="wide" id="crewDetails1"></label>
+    </div>
+    <div class="field-row" style="margin-top:4px;">
+      <label>PPE &amp; equipment inspection completed?</label>
       <span class="yn" id="ynPPE">
         <button type="button" onclick="ynToggle(this,'yes')">Done</button>
         <button type="button" onclick="ynToggle(this,'no')">Issues</button>
       </span>
-      <label class="wide"><input type="text" class="wide" id="ppeDetails1"></label>
+    </div>
+    <div class="field-row">
+      <label class="wide">PPE issues or equipment deficiencies: <input type="text" class="wide" id="ppeDetails1"></label>
+    </div>
+    <div class="field-row">
+      <label class="wide">Hazards or unsafe conditions observed: <input type="text" class="wide" id="hazardDetails"></label>
     </div>
   </div>
 
   <!-- 4. INTERNAL & EXTERNAL COMMUNIQUÉ -->
   <div class="section" id="sec-comms">
     <div class="section-title">4. Internal &amp; External Communiqu&eacute;</div>
+    <div class="section-desc">Track all significant communications — calls, meetings, emails, texts — with team, clients, subs, or vendors.</div>
     <div class="field-row">
-      <label>Internal (team/company): <input type="text" class="xs" id="commsIntCount"></label>
-      <label class="wide">Details: <input type="text" class="wide" id="commsIntDetails"></label>
+      <label>Internal contacts (team/company): <input type="text" class="xs" id="commsIntCount"></label>
+      <label class="wide">Who and what was discussed: <input type="text" class="wide" id="commsIntDetails"></label>
     </div>
     <div class="field-row">
-      <label>External (clients/subs/vendors): <input type="text" class="xs" id="commsExtCount"></label>
-      <label class="wide">Details: <input type="text" class="wide" id="commsExtDetails"></label>
+      <label>External contacts (clients/subs/vendors): <input type="text" class="xs" id="commsExtCount"></label>
+      <label class="wide">Who and what was discussed: <input type="text" class="wide" id="commsExtDetails"></label>
     </div>
-    <input class="note-line" type="text" id="commsNotes" placeholder="Additional communication notes...">
+    <input class="note-line" type="text" id="commsNotes" placeholder="Follow-up actions, pending responses, escalations...">
   </div>
 
   <!-- 5. TOMORROW'S FOCUS -->
   <div class="section">
-    <div class="section-title">5. Tomorrow's Focus</div>
+    <div class="section-title">5. Tomorrow's Plan &amp; Priorities</div>
+    <div class="section-desc">List your top priorities and planned tasks for tomorrow in order of importance.</div>
     <ol class="bullet-list nums" id="tomorrowFocus"></ol>
   </div>
 
   <!-- 6. PRODUCTIVITY & SELF-ASSESSMENT -->
   <div class="section" id="sec-assess">
     <div class="section-title">6. Productivity &amp; Self-Assessment</div>
+    <div class="section-desc">Honest self-evaluation helps us all improve. Answer each question thoughtfully.</div>
 
     <div class="assess-row">
-      <span class="qlabel">Asked for additional tasks when finished early?</span>
+      <span class="qlabel">Did you ask for additional tasks when you finished early?</span>
       <span class="yn" id="ynExtraTasks">
         <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
-      <label>If no, why? <input type="text" id="extraTasksWhy" style="width:220px"></label>
+      <br><label>If no, explain why: <input type="text" id="extraTasksWhy" style="width:380px"></label>
     </div>
 
     <div class="assess-row">
-      <span class="qlabel">Had to clarify instructions after starting?</span>
+      <span class="qlabel">Did you need to clarify instructions after starting a task?</span>
       <span class="yn" id="ynClarify">
         <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
-      <label>Details: <input type="text" id="clarifyDetails" style="width:240px"></label>
+      <br><label>What needed clarification: <input type="text" id="clarifyDetails" style="width:380px"></label>
     </div>
 
-    <div class="assess-row" style="margin-bottom:1px;">
-      <span class="qlabel">Proactive tasks (not assigned by supervisor):</span>
+    <div class="assess-row" style="margin-bottom:4px;">
+      <span class="qlabel">What tasks did you take on proactively (not assigned by a supervisor)?</span>
     </div>
     <ol class="bullet-list nums" id="proactiveTasks"></ol>
 
     <div class="assess-row">
-      <span class="qlabel">Effectiveness rating (1-10):</span>
-      <input type="text" id="effectRating" style="width:30px;text-align:center;">
-      <label style="margin-left:6px;">Reason: <input type="text" id="effectReason" style="width:220px"></label>
+      <span class="qlabel">Overall effectiveness rating (1–10):</span>
+      <input type="text" id="effectRating" style="width:40px;text-align:center;">
+      <br><label>What drove your rating today: <input type="text" id="effectReason" style="width:380px"></label>
     </div>
 
     <div class="assess-row">
-      <span class="qlabel">Identified process improvements?</span>
+      <span class="qlabel">Did you identify any process or workflow improvements?</span>
       <span class="yn" id="ynImprovements">
         <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
-      <label>Details: <input type="text" id="improvDetails" style="width:240px"></label>
+      <br><label>Describe the improvement: <input type="text" id="improvDetails" style="width:380px"></label>
     </div>
 
     <div class="assess-row">
-      <span class="qlabel">Mentored or helped a colleague?</span>
+      <span class="qlabel">Did you mentor, train, or help a colleague today?</span>
       <span class="yn" id="ynMentor">
         <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
-      <label>Details: <input type="text" id="mentorDetails" style="width:240px"></label>
+      <br><label>Who and how: <input type="text" id="mentorDetails" style="width:380px"></label>
     </div>
 
     <div class="assess-row">
-      <span class="qlabel">Time management (1-10):</span>
-      <input type="text" id="timeMgmtRating" style="width:30px;text-align:center;">
-      <label style="margin-left:6px;">Improve how? <input type="text" id="timeMgmtImprove" style="width:200px"></label>
+      <span class="qlabel">Time management rating (1–10):</span>
+      <input type="text" id="timeMgmtRating" style="width:40px;text-align:center;">
+      <br><label>How could you manage time better: <input type="text" id="timeMgmtImprove" style="width:380px"></label>
     </div>
 
     <div class="assess-row">
-      <span class="qlabel">Checked work for errors?</span>
+      <span class="qlabel">Did you double-check your work for errors before finishing?</span>
       <span class="yn" id="ynErrors">
         <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
-      <label>Times: <input type="text" id="errorCount" style="width:30px;text-align:center;"></label>
-      <label style="margin-left:4px;">Issues found/fixed: <input type="text" id="issuesFixed" style="width:180px"></label>
+      <label style="margin-left:8px;">Times checked: <input type="text" id="errorCount" style="width:40px;text-align:center;"></label>
+      <br><label>Issues found and how they were fixed: <input type="text" id="issuesFixed" style="width:380px"></label>
+    </div>
+
+    <div class="assess-row">
+      <span class="qlabel">What is one thing you learned or did well today?</span>
+      <br><input class="note-line" type="text" id="learnedToday">
+    </div>
+
+    <div class="assess-row">
+      <span class="qlabel">What is one thing you would do differently next time?</span>
+      <br><input class="note-line" type="text" id="doDifferently">
     </div>
   </div>
 
   <!-- SIGNATURE BLOCKS -->
   <div class="sig-block">
-    <label>Submitted by<input type="text" id="sigSubmittedBy"></label>
-    <label>Date / Time<input type="text" id="sigSubmitDT"></label>
+    <label>Employee Signature<input type="text" id="sigSubmittedBy"></label>
+    <label>Date / Time Submitted<input type="text" id="sigSubmitDT"></label>
   </div>
-  <div class="sig-block" style="margin-top:10px;">
-    <label>Supervisor Approval<input type="text" id="sigSupervisor"></label>
-    <label>Date / Time<input type="text" id="sigSuperDT"></label>
+  <div class="sig-block" style="margin-top:14px;">
+    <label>Supervisor Signature &amp; Approval<input type="text" id="sigSupervisor"></label>
+    <label>Date / Time Reviewed<input type="text" id="sigSuperDT"></label>
   </div>
 
   <!-- SUBMIT BUTTON -->
@@ -518,13 +551,14 @@
       roleTeam: v('roleTeam'),
       tasks: tasks,
       workOrders: workOrders,
-      woNotes: v('woNote1'),
+      woNotes: v('woNote1') + (v('woNote2') ? ' | ' + v('woNote2') : ''),
       crew: {
         hoursWorked: v('crewHours'),
         safetyIncidents: v('crewIncidents'),
         safetyDetails: v('crewDetails1'),
         ppeCheck: getYN('ynPPE') === 'Yes' ? 'Done' : (getYN('ynPPE') === 'No' ? 'Issues' : ''),
-        ppeDetails: v('ppeDetails1')
+        ppeDetails: v('ppeDetails1'),
+        hazards: v('hazardDetails')
       },
       comms: {
         internalCount: v('commsIntCount'),
@@ -547,7 +581,9 @@
         timeMgmtImprove: v('timeMgmtImprove'),
         checkedErrors: getYN('ynErrors'),
         errorCheckCount: v('errorCount'),
-        issuesFoundFixed: v('issuesFixed')
+        issuesFoundFixed: v('issuesFixed'),
+        learnedToday: v('learnedToday'),
+        doDifferently: v('doDifferently')
       },
       proactiveTasks: getListValues('proactiveTasks'),
       submittedBy: v('sigSubmittedBy'),
