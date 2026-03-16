@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLUCOR - Employee Daily Activity Report</title>
+<style>
+  :root {
+    --blue: #1a3a5c;
+    --blue-light: #2c5f8a;
+    --border: #b0b8c1;
+    --bg: #f7f8fa;
+    --row-alt: #eef2f6;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, Helvetica, sans-serif;
+    font-size: 11pt;
+    color: #222;
+    background: #e4e8ec;
+    padding: 20px;
+  }
+
+  .page {
+    max-width: 850px;
+    margin: 0 auto;
+    background: #fff;
+    padding: 40px 48px;
+    box-shadow: 0 2px 12px rgba(0,0,0,.12);
+    border-radius: 4px;
+  }
+
+  /* ── Header ── */
+  .header { text-align: center; margin-bottom: 24px; border-bottom: 3px solid var(--blue); padding-bottom: 16px; }
+  .header h1 { font-size: 18pt; color: var(--blue); letter-spacing: 1.5px; margin-bottom: 2px; }
+  .header h2 { font-size: 13pt; font-weight: 400; color: var(--blue-light); letter-spacing: .5px; }
+
+  /* ── Top fields row ── */
+  .top-fields { display: flex; gap: 12px; margin-bottom: 18px; flex-wrap: wrap; }
+  .top-fields label { flex: 1 1 200px; }
+  .top-fields label span { font-weight: 600; font-size: 9.5pt; color: #444; }
+  .top-fields input[type="text"],
+  .top-fields input[type="date"] {
+    width: 100%; border: none; border-bottom: 1.5px solid var(--border);
+    padding: 4px 2px; font-size: 10.5pt; background: transparent; outline: none;
+  }
+  .top-fields input:focus { border-color: var(--blue); }
+
+  /* ── Section titles ── */
+  .section { margin-top: 20px; }
+  .section-title {
+    font-size: 11pt; font-weight: 700; color: #fff; background: var(--blue);
+    padding: 5px 10px; margin-bottom: 6px; border-radius: 2px;
+  }
+
+  /* ── Tables ── */
+  table { width: 100%; border-collapse: collapse; margin-bottom: 4px; }
+  th { background: var(--blue-light); color: #fff; font-size: 9pt; text-transform: uppercase;
+       letter-spacing: .5px; padding: 5px 6px; text-align: left; }
+  td { padding: 0; }
+  td input, td textarea {
+    width: 100%; border: none; padding: 5px 6px; font-size: 10pt;
+    font-family: inherit; background: transparent; outline: none; resize: none;
+  }
+  tr:nth-child(even) td { background: var(--row-alt); }
+  table, th, td { border: 1px solid var(--border); }
+
+  /* ── Inline field rows ── */
+  .field-row { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 6px; align-items: flex-end; }
+  .field-row label { display: flex; align-items: baseline; gap: 4px; font-size: 9.5pt; font-weight: 600; color: #444; }
+  .field-row input[type="text"],
+  .field-row input[type="number"] {
+    border: none; border-bottom: 1.5px solid var(--border); padding: 2px 4px;
+    font-size: 10pt; background: transparent; outline: none;
+  }
+  .field-row input:focus { border-color: var(--blue); }
+  .field-row .wide { flex: 1 1 280px; }
+  .field-row .med  { width: 160px; }
+  .field-row .sm   { width: 80px; }
+  .field-row .xs   { width: 50px; }
+
+  /* ── Full-width note lines ── */
+  .note-line {
+    width: 100%; border: none; border-bottom: 1.5px solid var(--border);
+    padding: 4px 2px; font-size: 10pt; font-family: inherit; outline: none;
+    background: transparent; margin-bottom: 4px;
+  }
+  .note-line:focus { border-color: var(--blue); }
+
+  /* ── Bullet / numbered lists ── */
+  .bullet-list { list-style: none; padding: 0; }
+  .bullet-list li { display: flex; align-items: baseline; gap: 6px; margin-bottom: 4px; }
+  .bullet-list li::before { font-weight: 700; color: var(--blue); min-width: 16px; }
+  .bullet-list.dots li::before { content: "\2022"; }
+  .bullet-list.nums li::before { content: counter(num) "."; counter-increment: num; }
+  .bullet-list.nums { counter-reset: num; }
+  .bullet-list input { flex: 1; border: none; border-bottom: 1.5px solid var(--border);
+    padding: 2px 4px; font-size: 10pt; background: transparent; outline: none; }
+  .bullet-list input:focus { border-color: var(--blue); }
+
+  /* ── Yes/No toggles ── */
+  .yn { display: inline-flex; gap: 4px; margin: 0 6px; }
+  .yn button[type="button"] {
+    padding: 1px 10px; font-size: 9pt; border: 1.5px solid var(--border);
+    border-radius: 3px; background: #fff; cursor: pointer; font-weight: 600; color: #555;
+  }
+  .yn button[type="button"].active-yes { background: #27ae60; color: #fff; border-color: #27ae60; }
+  .yn button[type="button"].active-no  { background: #c0392b; color: #fff; border-color: #c0392b; }
+
+  /* ── Assessment inline ── */
+  .assess-row { margin-bottom: 8px; font-size: 10pt; line-height: 1.7; }
+  .assess-row .qlabel { font-weight: 600; color: #333; }
+
+  /* ── Signature block ── */
+  .sig-block { margin-top: 24px; display: flex; flex-wrap: wrap; gap: 20px; }
+  .sig-block label { flex: 1 1 200px; font-size: 9.5pt; font-weight: 600; color: #444; }
+  .sig-block input {
+    width: 100%; border: none; border-bottom: 2px solid var(--blue);
+    padding: 4px 2px; font-size: 10.5pt; background: transparent; outline: none;
+  }
+
+  /* ── Buttons ── */
+  .btn-bar { display: flex; gap: 12px; justify-content: center; margin-bottom: 24px; flex-wrap: wrap; }
+  .btn {
+    padding: 10px 28px; font-size: 11pt; font-weight: 600; border: none;
+    border-radius: 4px; cursor: pointer; letter-spacing: .3px;
+    transition: background .15s, transform .1s;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-fill  { background: var(--blue); color: #fff; }
+  .btn-fill:hover  { background: var(--blue-light); }
+  .btn-blank { background: #e0e0e0; color: #333; }
+  .btn-blank:hover { background: #ccc; }
+  .btn-clear { background: #c0392b; color: #fff; }
+  .btn-clear:hover { background: #e74c3c; }
+
+  /* ── Submit bar ── */
+  .submit-bar { text-align: center; margin-top: 28px; padding-top: 20px; border-top: 2px solid var(--blue); }
+  .submit-bar .btn { font-size: 13pt; padding: 12px 48px; }
+  .btn-submit { background: #27ae60; color: #fff; }
+  .btn-submit:hover { background: #2ecc71; }
+  .btn-submit:disabled { background: #95a5a6; cursor: not-allowed; transform: none; }
+  .submit-msg {
+    display: none; margin-top: 14px; padding: 12px 20px; border-radius: 4px;
+    font-weight: 600; font-size: 11pt;
+  }
+  .submit-msg.ok   { background: #d5f5e3; border: 1px solid #27ae60; color: #1e7e34; }
+  .submit-msg.fail { background: #fadbd8; border: 1px solid #c0392b; color: #922b21; }
+
+  /* ── Spinner ── */
+  .spinner { display: inline-block; width: 18px; height: 18px; border: 3px solid #fff;
+    border-top-color: transparent; border-radius: 50%; animation: spin .6s linear infinite;
+    vertical-align: middle; margin-right: 8px; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Print styles ── */
+  @media print {
+    body { background: #fff; padding: 0; }
+    .page { box-shadow: none; padding: 20px 24px; max-width: 100%; }
+    .btn-bar, .submit-bar { display: none !important; }
+    .header { border-bottom-width: 2px; padding-bottom: 10px; margin-bottom: 14px; }
+    .section { margin-top: 14px; }
+    .section-title { padding: 3px 8px; }
+    input, textarea { border-color: #999 !important; }
+    .yn button[type="button"] { border-color: #999; }
+    @page { size: letter portrait; margin: 0.4in 0.4in; }
+    table { page-break-inside: avoid; }
+
+    body.print-blank input,
+    body.print-blank textarea { color: transparent !important; }
+    body.print-blank .yn button[type="button"].active-yes,
+    body.print-blank .yn button[type="button"].active-no {
+      background: #fff !important; color: #555 !important; border-color: #999 !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="btn-bar" id="btnBar">
+  <button type="button" class="btn btn-fill" onclick="printFilled()">&#128424; Print Filled Form</button>
+  <button type="button" class="btn btn-blank" onclick="printBlank()">&#128196; Print Blank Form</button>
+  <button type="button" class="btn btn-clear" onclick="clearForm()">&#128465; Clear All Fields</button>
+</div>
+
+<div class="page" id="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>BLUCOR</h1>
+    <h2>Employee Daily Activity Report</h2>
+  </div>
+
+  <!-- TOP FIELDS -->
+  <div class="top-fields">
+    <label><span>Report Date</span><input type="date" id="reportDate"></label>
+    <label><span>Employee Name</span><input type="text" id="empName"></label>
+    <label><span>Role / Team</span><input type="text" id="roleTeam"></label>
+  </div>
+
+  <!-- 1. TODAY'S COMPLETED WORK -->
+  <div class="section" id="sec-tasks">
+    <div class="section-title">1. Today's Completed Work</div>
+    <table>
+      <thead><tr><th style="width:40%">Task Description</th><th style="width:40%">Details / Notes</th><th style="width:20%">Time Spent (hrs)</th></tr></thead>
+      <tbody id="taskRows"></tbody>
+    </table>
+  </div>
+
+  <!-- 2. WORK ORDERS -->
+  <div class="section" id="sec-wo">
+    <div class="section-title">2. Work Orders and Repair Requests Completed</div>
+    <div id="woRows"></div>
+    <div style="margin-top:6px;">
+      <span style="font-weight:600;font-size:9.5pt;color:#444;">Additional Notes</span>
+      <input class="note-line" type="text" id="woNote1">
+      <input class="note-line" type="text" id="woNote2">
+    </div>
+  </div>
+
+  <!-- 3. CREW & SAFETY LOG -->
+  <div class="section" id="sec-crew">
+    <div class="section-title">3. Crew &amp; Safety Log</div>
+    <div class="field-row">
+      <label>Hours worked: <input type="text" class="xs" id="crewHours"></label>
+      <label>Safety incidents: <input type="text" class="xs" id="crewIncidents"></label>
+      <label class="wide">Details: <input type="text" class="wide" id="crewDetails1"></label>
+    </div>
+    <input class="note-line" type="text" id="crewDetails2">
+    <div class="field-row" style="margin-top:4px;">
+      <label>PPE / equipment checks:</label>
+      <span class="yn" id="ynPPE">
+        <button type="button" onclick="ynToggle(this,'yes')">Done</button>
+        <button type="button" onclick="ynToggle(this,'no')">Issues</button>
+      </span>
+      <label class="wide"><input type="text" class="wide" id="ppeDetails1"></label>
+    </div>
+    <input class="note-line" type="text" id="ppeDetails2">
+  </div>
+
+  <!-- 4. CLIENT & SUBCONTRACTOR UPDATES -->
+  <div class="section" id="sec-client">
+    <div class="section-title">4. Client &amp; Subcontractor Updates</div>
+    <div class="field-row">
+      <label>Calls/Meetings: <input type="text" class="xs" id="clientCalls"></label>
+      <label>Change orders: <input type="text" class="xs" id="clientChanges"></label>
+      <label>Info Requests/Queries: <input type="text" class="xs" id="clientQueries"></label>
+    </div>
+    <div style="margin-top:4px;">
+      <span style="font-weight:600;font-size:9.5pt;color:#444;">Details</span>
+      <input class="note-line" type="text" id="clientDetails1">
+      <input class="note-line" type="text" id="clientDetails2">
+    </div>
+  </div>
+
+  <!-- 5. CHALLENGES / DELAYS -->
+  <div class="section">
+    <div class="section-title">5. Challenges / Delays</div>
+    <ul class="bullet-list dots" id="challenges"></ul>
+  </div>
+
+  <!-- 6. TOMORROW'S FOCUS -->
+  <div class="section">
+    <div class="section-title">6. Tomorrow's Focus</div>
+    <ol class="bullet-list nums" id="tomorrowFocus"></ol>
+  </div>
+
+  <!-- 7. PRODUCTIVITY & SELF-ASSESSMENT -->
+  <div class="section" id="sec-assess">
+    <div class="section-title">7. Productivity &amp; Self-Assessment</div>
+
+    <div class="assess-row">
+      <span class="qlabel">Asked for additional tasks when finished early?</span>
+      <span class="yn" id="ynExtraTasks">
+        <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
+        <button type="button" onclick="ynToggle(this,'no')">No</button>
+      </span>
+      <label>If no, why? <input type="text" id="extraTasksWhy" style="width:280px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;background:transparent;"></label>
+    </div>
+
+    <div class="assess-row">
+      <span class="qlabel">Had to come back and clarify instructions?</span>
+      <span class="yn" id="ynClarify">
+        <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
+        <button type="button" onclick="ynToggle(this,'no')">No</button>
+      </span>
+      <label>Details: <input type="text" id="clarifyDetails" style="width:300px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;background:transparent;"></label>
+    </div>
+
+    <div class="assess-row" style="margin-bottom:2px;">
+      <span class="qlabel">Proactive tasks completed (not assigned by supervisor):</span>
+    </div>
+    <ol class="bullet-list nums" id="proactiveTasks"></ol>
+
+    <div class="assess-row">
+      <span class="qlabel">Work results / effectiveness rating (1-10):</span>
+      <input type="text" id="effectRating" style="width:40px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;text-align:center;background:transparent;">
+      <label style="margin-left:8px;">One reason: <input type="text" id="effectReason" style="width:260px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;background:transparent;"></label>
+    </div>
+
+    <div class="assess-row">
+      <span class="qlabel">Identified process improvements today?</span>
+      <span class="yn" id="ynImprovements">
+        <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
+        <button type="button" onclick="ynToggle(this,'no')">No</button>
+      </span>
+      <label>Details: <input type="text" id="improvDetails" style="width:300px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;background:transparent;"></label>
+    </div>
+
+    <div class="assess-row">
+      <span class="qlabel">Mentored, trained, or helped a colleague?</span>
+      <span class="yn" id="ynMentor">
+        <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
+        <button type="button" onclick="ynToggle(this,'no')">No</button>
+      </span>
+      <label>Details: <input type="text" id="mentorDetails" style="width:300px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;background:transparent;"></label>
+    </div>
+
+    <div class="assess-row">
+      <span class="qlabel">Time management rating (1-10):</span>
+      <input type="text" id="timeMgmtRating" style="width:40px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;text-align:center;background:transparent;">
+      <label style="margin-left:8px;">How could you improve? <input type="text" id="timeMgmtImprove" style="width:240px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;background:transparent;"></label>
+    </div>
+
+    <div class="assess-row">
+      <span class="qlabel">Checked work for errors/quality?</span>
+      <span class="yn" id="ynErrors">
+        <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
+        <button type="button" onclick="ynToggle(this,'no')">No</button>
+      </span>
+      <label>How many times? <input type="text" id="errorCount" style="width:40px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;text-align:center;background:transparent;"></label>
+      <label style="margin-left:8px;">Issues found/fixed: <input type="text" id="issuesFixed" style="width:220px;border:none;border-bottom:1.5px solid var(--border);font-size:10pt;outline:none;background:transparent;"></label>
+    </div>
+  </div>
+
+  <!-- 8. REMARKS / SIGN-OFF -->
+  <div class="section">
+    <div class="section-title">8. Remarks / Sign-Off</div>
+    <input class="note-line" type="text" id="remarks1">
+    <input class="note-line" type="text" id="remarks2">
+    <input class="note-line" type="text" id="remarks3">
+  </div>
+
+  <!-- SIGNATURE BLOCK -->
+  <div class="sig-block">
+    <label>Submitted by<input type="text" id="sigSubmittedBy"></label>
+    <label>Date / Time<input type="text" id="sigSubmitDT"></label>
+  </div>
+  <div class="sig-block" style="margin-top:14px;">
+    <label>Supervisor Approval<input type="text" id="sigSupervisor"></label>
+    <label>Date / Time<input type="text" id="sigSuperDT"></label>
+  </div>
+
+  <!-- SUBMIT BUTTON -->
+  <div class="submit-bar" id="submitBar">
+    <button type="button" class="btn btn-submit" id="submitBtn" onclick="submitReport()">&#10004; Submit Report</button>
+    <div class="submit-msg" id="submitMsg"></div>
+  </div>
+
+</div><!-- /page -->
+
+<script>
+  // ════════════════════════════════════════════════════════════
+  //  CONFIGURATION — Paste your Google Apps Script web app URL
+  // ════════════════════════════════════════════════════════════
+  var SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
+  // ════════════════════════════════════════════════════════════
+
+  /* ── Build repeated rows ── */
+  (function init() {
+    var taskBody = document.getElementById('taskRows');
+    for (var i = 0; i < 10; i++) {
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td><input type="text"></td><td><input type="text"></td><td><input type="text"></td>';
+      taskBody.appendChild(tr);
+    }
+
+    var woBox = document.getElementById('woRows');
+    for (var i = 0; i < 5; i++) {
+      var d = document.createElement('div');
+      d.className = 'field-row';
+      d.innerHTML =
+        '<label>WO/Request #: <input type="text" class="med"></label>' +
+        '<label>Location/Asset: <input type="text" class="med"></label>' +
+        '<label>% Complete: <input type="text" class="xs"></label>' +
+        '<label class="wide">Notes: <input type="text" class="wide"></label>';
+      woBox.appendChild(d);
+    }
+
+    buildList('challenges', 4);
+    buildList('tomorrowFocus', 5);
+    buildList('proactiveTasks', 5);
+
+    document.getElementById('reportDate').valueAsDate = new Date();
+  })();
+
+  function buildList(id, n) {
+    var ul = document.getElementById(id);
+    for (var i = 0; i < n; i++) {
+      var li = document.createElement('li');
+      li.innerHTML = '<input type="text">';
+      ul.appendChild(li);
+    }
+  }
+
+  /* ── Yes / No toggle ── */
+  function ynToggle(btn, val) {
+    var sibling = val === 'yes' ? btn.nextElementSibling : btn.previousElementSibling;
+    btn.classList.remove('active-yes', 'active-no');
+    if (sibling) sibling.classList.remove('active-yes', 'active-no');
+    btn.classList.add(val === 'yes' ? 'active-yes' : 'active-no');
+  }
+
+  function getYN(containerId) {
+    var el = document.getElementById(containerId);
+    if (!el) return '';
+    var active = el.querySelector('.active-yes');
+    if (active) return 'Yes';
+    active = el.querySelector('.active-no');
+    if (active) return 'No';
+    return '';
+  }
+
+  /* ── Print ── */
+  function printFilled() {
+    document.body.classList.remove('print-blank');
+    window.print();
+  }
+
+  function printBlank() {
+    document.body.classList.add('print-blank');
+    window.print();
+    setTimeout(function() { document.body.classList.remove('print-blank'); }, 500);
+  }
+
+  /* ── Clear ── */
+  function clearForm() {
+    if (!confirm('Clear all fields? This cannot be undone.')) return;
+    document.querySelectorAll('input, textarea').forEach(function(el) {
+      if (el.type === 'date') { el.valueAsDate = new Date(); }
+      else { el.value = ''; }
+    });
+    document.querySelectorAll('.active-yes, .active-no').forEach(function(btn) {
+      btn.classList.remove('active-yes', 'active-no');
+    });
+    var msg = document.getElementById('submitMsg');
+    msg.style.display = 'none';
+    msg.className = 'submit-msg';
+  }
+
+  /* ── Collect list values ── */
+  function getListValues(id) {
+    var items = [];
+    document.querySelectorAll('#' + id + ' input').forEach(function(inp) {
+      items.push(inp.value.trim());
+    });
+    return items;
+  }
+
+  /* ── Gather all form data into structured object ── */
+  function gatherData() {
+    // Tasks
+    var tasks = [];
+    document.querySelectorAll('#taskRows tr').forEach(function(tr) {
+      var cells = tr.querySelectorAll('input');
+      tasks.push({
+        description: cells[0].value.trim(),
+        notes: cells[1].value.trim(),
+        hours: cells[2].value.trim()
+      });
+    });
+
+    // Work orders
+    var workOrders = [];
+    document.querySelectorAll('#woRows .field-row').forEach(function(row) {
+      var inputs = row.querySelectorAll('input');
+      workOrders.push({
+        number: inputs[0].value.trim(),
+        location: inputs[1].value.trim(),
+        percent: inputs[2].value.trim(),
+        notes: inputs[3].value.trim()
+      });
+    });
+
+    var v = function(id) { var el = document.getElementById(id); return el ? el.value.trim() : ''; };
+
+    return {
+      reportDate: v('reportDate'),
+      employeeName: v('empName'),
+      roleTeam: v('roleTeam'),
+      tasks: tasks,
+      workOrders: workOrders,
+      woNotes: v('woNote1') + (v('woNote2') ? '\n' + v('woNote2') : ''),
+      crew: {
+        hoursWorked: v('crewHours'),
+        safetyIncidents: v('crewIncidents'),
+        safetyDetails: [v('crewDetails1'), v('crewDetails2')].filter(Boolean).join(' '),
+        ppeCheck: getYN('ynPPE') === 'Yes' ? 'Done' : (getYN('ynPPE') === 'No' ? 'Issues' : ''),
+        ppeDetails: [v('ppeDetails1'), v('ppeDetails2')].filter(Boolean).join(' ')
+      },
+      client: {
+        callsMeetings: v('clientCalls'),
+        changeOrders: v('clientChanges'),
+        infoRequests: v('clientQueries'),
+        details: [v('clientDetails1'), v('clientDetails2')].filter(Boolean).join(' ')
+      },
+      challenges: getListValues('challenges'),
+      tomorrowFocus: getListValues('tomorrowFocus'),
+      assessment: {
+        askedExtraTasks: getYN('ynExtraTasks'),
+        askedExtraTasksWhy: v('extraTasksWhy'),
+        clarifiedInstructions: getYN('ynClarify'),
+        clarifiedDetails: v('clarifyDetails'),
+        effectivenessRating: v('effectRating'),
+        effectivenessReason: v('effectReason'),
+        processImprovements: (getYN('ynImprovements') ? getYN('ynImprovements') + ': ' : '') + v('improvDetails'),
+        mentoredColleague: (getYN('ynMentor') ? getYN('ynMentor') + ': ' : '') + v('mentorDetails'),
+        timeMgmtRating: v('timeMgmtRating'),
+        timeMgmtImprove: v('timeMgmtImprove'),
+        checkedErrors: getYN('ynErrors'),
+        errorCheckCount: v('errorCount'),
+        issuesFoundFixed: v('issuesFixed')
+      },
+      proactiveTasks: getListValues('proactiveTasks'),
+      remarks: [v('remarks1'), v('remarks2'), v('remarks3')].filter(Boolean),
+      submittedBy: v('sigSubmittedBy'),
+      submitDateTime: v('sigSubmitDT'),
+      supervisorApproval: v('sigSupervisor'),
+      supervisorDateTime: v('sigSuperDT')
+    };
+  }
+
+  /* ── Show message ── */
+  function showMsg(type, text) {
+    var msg = document.getElementById('submitMsg');
+    msg.className = 'submit-msg ' + type;
+    msg.textContent = text;
+    msg.style.display = 'block';
+  }
+
+  /* ── Submit report ── */
+  function submitReport() {
+    // Validate required fields
+    var name = document.getElementById('empName').value.trim();
+    var date = document.getElementById('reportDate').value;
+    if (!name) { showMsg('fail', 'Please enter your name.'); document.getElementById('empName').focus(); return; }
+    if (!date) { showMsg('fail', 'Please enter the report date.'); document.getElementById('reportDate').focus(); return; }
+
+    if (SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
+      showMsg('fail', 'Submission endpoint not configured. Contact your administrator.');
+      return;
+    }
+
+    var btn = document.getElementById('submitBtn');
+    btn.disabled = true;
+    btn.innerHTML = '<span class="spinner"></span> Submitting...';
+
+    var data = gatherData();
+
+    fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify(data)
+    })
+    .then(function() {
+      // no-cors means we can't read the response, but if it didn't throw, it sent
+      showMsg('ok', 'Report submitted successfully! Thank you, ' + data.employeeName + '.');
+      btn.disabled = false;
+      btn.innerHTML = '&#10004; Submit Report';
+    })
+    .catch(function(err) {
+      showMsg('fail', 'Submission failed: ' + err.message + '. Please try again or contact your administrator.');
+      btn.disabled = false;
+      btn.innerHTML = '&#10004; Submit Report';
+    });
+  }
+</script>
+
+</body>
+</html>
