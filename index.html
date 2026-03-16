@@ -168,36 +168,36 @@
 
   /* ── Print styles — front/back single sheet ── */
   @media print {
-    body { background: #fff; padding: 0; font-size: 11pt; }
-    .page { box-shadow: none; padding: 16px 24px; max-width: 100%; }
+    body { background: #fff; padding: 0; font-size: 9pt; }
+    .page { box-shadow: none; padding: 8px 16px; max-width: 100%; }
     .btn-bar, .submit-bar { display: none !important; }
-    .header { border-bottom-width: 2px; padding-bottom: 8px; margin-bottom: 10px; }
-    .header h1 { font-size: 20pt; }
-    .header h2 { font-size: 13pt; }
-    .section { margin-top: 10px; }
-    .section-title { padding: 4px 8px; font-size: 10pt; }
-    .section-desc { font-size: 9pt; margin-bottom: 4px; }
-    .top-fields { margin-bottom: 10px; }
-    .top-fields label span { font-size: 10pt; }
-    .top-fields input { font-size: 10pt; }
+    .header { border-bottom-width: 2px; padding-bottom: 5px; margin-bottom: 6px; }
+    .header h1 { font-size: 16pt; }
+    .header h2 { font-size: 11pt; }
+    .section { margin-top: 6px; }
+    .section-title { padding: 2px 6px; font-size: 8.5pt; margin-bottom: 3px; }
+    .section-desc { font-size: 7.5pt; margin-bottom: 3px; }
+    .top-fields { margin-bottom: 6px; gap: 8px; }
+    .top-fields label span { font-size: 8.5pt; }
+    .top-fields input { font-size: 8.5pt; padding: 2px 2px; }
     input, textarea { border-color: #999 !important; }
-    .yn button[type="button"] { border-color: #999; font-size: 9pt; padding: 1px 10px; }
-    td input { font-size: 10pt; padding: 3px 4px; }
-    td.time-label { font-size: 9.5pt; padding: 3px 6px; }
-    th { font-size: 9pt; padding: 4px 6px; }
-    .field-row label, .field-row input[type="text"] { font-size: 10pt; }
-    .field-row { margin-bottom: 6px; }
-    .note-line { font-size: 10pt; margin-bottom: 3px; }
-    .assess-row { font-size: 10pt; margin-bottom: 8px; }
-    .assess-row input[type="text"] { font-size: 10pt; }
-    .bullet-list input { font-size: 10pt; }
-    .bullet-list li::before { font-size: 10pt; }
-    .bullet-list li { margin-bottom: 5px; }
-    .sig-block { margin-top: 14px; }
-    .sig-block label { font-size: 10pt; }
-    .sig-block input { font-size: 10pt; }
+    .yn button[type="button"] { border-color: #999; font-size: 7.5pt; padding: 0px 8px; }
+    td input { font-size: 8.5pt; padding: 1px 3px; }
+    td.time-label { font-size: 8pt; padding: 1px 4px; }
+    th { font-size: 7.5pt; padding: 2px 4px; }
+    .field-row { margin-bottom: 3px; gap: 6px; }
+    .field-row label, .field-row input[type="text"] { font-size: 8.5pt; }
+    .note-line { font-size: 8.5pt; margin-bottom: 2px; padding: 2px 2px; }
+    .assess-row { font-size: 8.5pt; margin-bottom: 4px; line-height: 1.4; }
+    .assess-row input[type="text"] { font-size: 8.5pt; padding: 1px 3px; }
+    .bullet-list input { font-size: 8.5pt; padding: 1px 3px; }
+    .bullet-list li::before { font-size: 8.5pt; }
+    .bullet-list li { margin-bottom: 2px; }
+    .sig-block { margin-top: 8px; gap: 12px; }
+    .sig-block label { font-size: 8.5pt; }
+    .sig-block input { font-size: 8.5pt; padding: 2px 2px; }
 
-    @page { size: letter portrait; margin: 0.3in 0.35in; }
+    @page { size: letter portrait; margin: 0.25in 0.3in; }
 
     .page-break { display: block; page-break-before: always; }
 
@@ -250,8 +250,8 @@
     <div class="section-title">2. Work Orders &amp; Repair Requests Completed</div>
     <div class="section-desc">List each work order or repair request you worked on today. Include completion percentage and any issues encountered.</div>
     <div id="woRows"></div>
-    <div style="margin-top:6px;">
-      <span style="font-weight:600;font-size:11pt;color:#444;">Additional Notes</span>
+    <div style="margin-top:4px;">
+      <span style="font-weight:600;font-size:10pt;color:#444;">Additional Notes</span>
       <input class="note-line" type="text" id="woNote1" placeholder="Materials used, delays, follow-up needed...">
       <input class="note-line" type="text" id="woNote2">
     </div>
@@ -319,7 +319,7 @@
         <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
-      <br><label>If no, explain why: <input type="text" id="extraTasksWhy" style="width:380px"></label>
+      <label style="margin-left:4px;">If no, explain why: <input type="text" id="extraTasksWhy" style="width:300px"></label>
     </div>
 
     <div class="assess-row">
@@ -328,7 +328,7 @@
         <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
-      <br><label>What needed clarification: <input type="text" id="clarifyDetails" style="width:380px"></label>
+      <label style="margin-left:4px;">What needed clarification: <input type="text" id="clarifyDetails" style="width:300px"></label>
     </div>
 
     <div class="assess-row" style="margin-bottom:4px;">
@@ -339,7 +339,7 @@
     <div class="assess-row">
       <span class="qlabel">Overall effectiveness rating (1–10):</span>
       <input type="text" id="effectRating" style="width:40px;text-align:center;">
-      <br><label>What drove your rating today: <input type="text" id="effectReason" style="width:380px"></label>
+      <label style="margin-left:4px;">What drove your rating today: <input type="text" id="effectReason" style="width:300px"></label>
     </div>
 
     <div class="assess-row">
@@ -348,7 +348,7 @@
         <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
-      <br><label>Describe the improvement: <input type="text" id="improvDetails" style="width:380px"></label>
+      <label style="margin-left:4px;">Describe the improvement: <input type="text" id="improvDetails" style="width:300px"></label>
     </div>
 
     <div class="assess-row">
@@ -357,13 +357,13 @@
         <button type="button" onclick="ynToggle(this,'yes')">Yes</button>
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
-      <br><label>Who and how: <input type="text" id="mentorDetails" style="width:380px"></label>
+      <label style="margin-left:4px;">Who and how: <input type="text" id="mentorDetails" style="width:300px"></label>
     </div>
 
     <div class="assess-row">
       <span class="qlabel">Time management rating (1–10):</span>
       <input type="text" id="timeMgmtRating" style="width:40px;text-align:center;">
-      <br><label>How could you manage time better: <input type="text" id="timeMgmtImprove" style="width:380px"></label>
+      <label style="margin-left:4px;">How could you manage time better: <input type="text" id="timeMgmtImprove" style="width:300px"></label>
     </div>
 
     <div class="assess-row">
@@ -373,17 +373,17 @@
         <button type="button" onclick="ynToggle(this,'no')">No</button>
       </span>
       <label style="margin-left:8px;">Times checked: <input type="text" id="errorCount" style="width:40px;text-align:center;"></label>
-      <br><label>Issues found and how they were fixed: <input type="text" id="issuesFixed" style="width:380px"></label>
+      <label style="margin-left:4px;">Issues found and fixed: <input type="text" id="issuesFixed" style="width:300px"></label>
     </div>
 
     <div class="assess-row">
-      <span class="qlabel">What is one thing you learned or did well today?</span>
-      <br><input class="note-line" type="text" id="learnedToday">
+      <span class="qlabel">One thing you learned or did well today:</span>
+      <input class="note-line" type="text" id="learnedToday">
     </div>
 
     <div class="assess-row">
-      <span class="qlabel">What is one thing you would do differently next time?</span>
-      <br><input class="note-line" type="text" id="doDifferently">
+      <span class="qlabel">One thing you would do differently next time:</span>
+      <input class="note-line" type="text" id="doDifferently">
     </div>
   </div>
 
