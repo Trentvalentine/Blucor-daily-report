@@ -147,30 +147,24 @@
   .btn-clear { background: #c0392b; color: #fff; }
   .btn-clear:hover { background: #e74c3c; }
 
-  /* ── Submit bar ── */
-  .submit-bar { text-align: center; margin-top: 16px; padding-top: 12px; border-top: 2px solid var(--blue); }
-  .submit-bar .btn { font-size: 13pt; padding: 12px 48px; }
-  .btn-submit { background: #27ae60; color: #fff; }
-  .btn-submit:hover { background: #2ecc71; }
-  .btn-submit:disabled { background: #95a5a6; cursor: not-allowed; transform: none; }
-  .submit-msg {
-    display: none; margin-top: 10px; padding: 10px 16px; border-radius: 4px;
-    font-weight: 600; font-size: 10pt;
+  /* ── Online submission banner ── */
+  .form-banner {
+    max-width: 860px; margin: 0 auto 16px; padding: 14px 24px;
+    background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
+    border-radius: 6px; text-align: center; color: #fff;
   }
-  .submit-msg.ok   { background: #d5f5e3; border: 1px solid #27ae60; color: #1e7e34; }
-  .submit-msg.fail { background: #fadbd8; border: 1px solid #c0392b; color: #922b21; }
-
-  /* ── Spinner ── */
-  .spinner { display: inline-block; width: 16px; height: 16px; border: 3px solid #fff;
-    border-top-color: transparent; border-radius: 50%; animation: spin .6s linear infinite;
-    vertical-align: middle; margin-right: 6px; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .form-banner a {
+    color: #fff; font-weight: 700; font-size: 13pt; text-decoration: none;
+    letter-spacing: .3px;
+  }
+  .form-banner a:hover { text-decoration: underline; }
+  .form-banner .sub { font-size: 9pt; opacity: .85; margin-top: 2px; }
 
   /* ── Print styles — front/back single sheet ── */
   @media print {
     body { background: #fff; padding: 0; font-size: 9pt; }
     .page { box-shadow: none; padding: 8px 16px; max-width: 100%; }
-    .btn-bar, .submit-bar { display: none !important; }
+    .btn-bar, .form-banner { display: none !important; }
     .header { border-bottom-width: 2px; padding-bottom: 5px; margin-bottom: 6px; }
     .header h1 { font-size: 16pt; }
     .header h2 { font-size: 11pt; }
@@ -211,6 +205,11 @@
 </style>
 </head>
 <body>
+
+<div class="form-banner">
+  <a href="YOUR_GOOGLE_FORM_URL_HERE" target="_blank">&#128221; Submit Your Daily Report Online</a>
+  <div class="sub">Use the Google Form for daily submissions &mdash; this page is for printing only</div>
+</div>
 
 <div class="btn-bar" id="btnBar">
   <button type="button" class="btn btn-fill" onclick="printFilled()">&#128424; Print Filled Form</button>
@@ -397,21 +396,9 @@
     <label>Date / Time Reviewed<input type="text" id="sigSuperDT"></label>
   </div>
 
-  <!-- SUBMIT BUTTON -->
-  <div class="submit-bar" id="submitBar">
-    <button type="button" class="btn btn-submit" id="submitBtn" onclick="submitReport()">&#10004; Submit Report</button>
-    <div class="submit-msg" id="submitMsg"></div>
-  </div>
-
 </div><!-- /page -->
 
 <script>
-  // ════════════════════════════════════════════════════════════
-  //  CONFIGURATION — Paste your Google Apps Script web app URL
-  // ════════════════════════════════════════════════════════════
-  var SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE';
-  // ════════════════════════════════════════════════════════════
-
   /* ── Time slots: 4:00 AM – 4:00 PM in 30-min increments ── */
   var TIME_SLOTS = [];
   (function() {
@@ -509,9 +496,6 @@
     document.querySelectorAll('.active-yes, .active-no').forEach(function(btn) {
       btn.classList.remove('active-yes', 'active-no');
     });
-    var msg = document.getElementById('submitMsg');
-    msg.style.display = 'none';
-    msg.className = 'submit-msg';
   }
 
   /* ── Collect list values ── */
@@ -593,49 +577,7 @@
     };
   }
 
-  /* ── Show message ── */
-  function showMsg(type, text) {
-    var msg = document.getElementById('submitMsg');
-    msg.className = 'submit-msg ' + type;
-    msg.textContent = text;
-    msg.style.display = 'block';
-  }
 
-  /* ── Submit report ── */
-  function submitReport() {
-    var name = document.getElementById('empName').value.trim();
-    var date = document.getElementById('reportDate').value;
-    if (!name) { showMsg('fail', 'Please enter your name.'); document.getElementById('empName').focus(); return; }
-    if (!date) { showMsg('fail', 'Please enter the report date.'); document.getElementById('reportDate').focus(); return; }
-
-    if (SCRIPT_URL === 'YOUR_APPS_SCRIPT_URL_HERE') {
-      showMsg('fail', 'Submission endpoint not configured. Contact your administrator.');
-      return;
-    }
-
-    var btn = document.getElementById('submitBtn');
-    btn.disabled = true;
-    btn.innerHTML = '<span class="spinner"></span> Submitting...';
-
-    var data = gatherData();
-
-    fetch(SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
-      headers: { 'Content-Type': 'text/plain' },
-      body: JSON.stringify(data)
-    })
-    .then(function() {
-      showMsg('ok', 'Report submitted successfully! Thank you, ' + data.employeeName + '.');
-      btn.disabled = false;
-      btn.innerHTML = '&#10004; Submit Report';
-    })
-    .catch(function(err) {
-      showMsg('fail', 'Submission failed: ' + err.message + '. Please try again or contact your administrator.');
-      btn.disabled = false;
-      btn.innerHTML = '&#10004; Submit Report';
-    });
-  }
 </script>
 
 </body>
