@@ -325,11 +325,28 @@ function createBluCorDailyForm() {
   Logger.log('Sheet URL:          https://docs.google.com/spreadsheets/d/' + form.getDestinationId());
   Logger.log('═══════════════════════════════════════════');
   Logger.log('NEXT STEP: Open the Sheet and run dashboard-setup.gs');
+
+  return {
+    formUrl: form.getPublishedUrl(),
+    editUrl: form.getEditUrl(),
+    sheetId: form.getDestinationId(),
+    sheetUrl: 'https://docs.google.com/spreadsheets/d/' + form.getDestinationId()
+  };
 }
 
 
 // ─────────────────────────────────────────────────────────
-//  HELPER: Add a task block (start time, end time, description)
+//  WEB APP TRIGGER — visit the deployed URL to run setup
+// ─────────────────────────────────────────────────────────
+function doGet() {
+  var result = createBluCorDailyForm();
+  var html = '<h1>BLUCOR Form Created!</h1>' +
+    '<p><b>Form URL:</b> <a href="' + result.formUrl + '">' + result.formUrl + '</a></p>' +
+    '<p><b>Edit URL:</b> <a href="' + result.editUrl + '">' + result.editUrl + '</a></p>' +
+    '<p><b>Sheet URL:</b> <a href="' + result.sheetUrl + '">' + result.sheetUrl + '</a></p>' +
+    '<p>You can close this tab now.</p>';
+  return HtmlService.createHtmlOutput(html);
+}
 // ─────────────────────────────────────────────────────────
 function addTaskBlock(form, num, timeOptions) {
   form.addListItem()
